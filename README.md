@@ -14,7 +14,6 @@ Minimal, human-readable Python agent inspired by `pi`.
 
 - Simple CLI + REPL
 - JSONL session persistence
-- Minimal event bus
 - Tool shortcuts:
   - `/read <path>`
   - `/write <path> <text>`
@@ -37,7 +36,6 @@ src/pi_py/
   cli.py        # command-line interface and REPL
   config.py     # config loading + paths
   models.py     # simple data models
-  events.py     # event bus and event model
   llm.py        # model call boundary (stub now)
   tools.py      # built-in tools
   agent.py      # single-turn agent loop
@@ -53,11 +51,13 @@ uv run pi-py "hello"
 uv run pi-py
 ```
 
-Try tool progress output:
+Try a tool command:
 
 ```bash
 uv run pi-py "/bash ls -la"
 ```
+
+In v1, command output is returned as a normal assistant response. Structured event/progress streams are part of v2.
 
 ## Why `uv`?
 
