@@ -1,23 +1,19 @@
+"""LLM boundary for agent code.
+
+Keeps the rest of the codebase provider-agnostic.
+"""
+
+from .ai_types import Context, KnownProvider
+from .env_api_keys import get_env_api_key
+from .model_registry import get_model
 from .models import Message
 from .prompts import system_prompt
+from .stream import complete as dispatch_complete
 
 
-def complete(messages: list[Message]) -> Message:
-    """Return an assistant message from the current conversation.
-
-    This is intentionally a local stub for now. In the next iteration,
-    this function becomes the provider boundary (OpenAI/Anthropic calls).
-    """
-    user_text = ""
-    for msg in reversed(messages):
-        if msg.role == "user":
-            user_text = msg.content
-            break
-
-    text = (
-        f"{system_prompt()}\n\n"
-        f"(stub response)\n"
-        f"You said: {user_text}\n"
-        "Tool shortcuts: /read <path>, /write <path> <text>, /bash <command>"
-    )
-    return Message(role="assistant", content=text)
+def complete(messages: list[Message], provider: KnownProvider, model_id: str) -> Message:
+    """Resolve a model + provider adapter and return one assistant response."""
+    model = get_model(provider, model_id)
+    context = Context(messages=messages, system_prompt=system_prompt())
+    api_key = get_env_api_key(provider)
+    return dispatch_complete(model, context, api_key)

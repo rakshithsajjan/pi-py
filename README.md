@@ -14,11 +14,19 @@ Minimal, human-readable Python agent inspired by `pi`.
 
 - Simple CLI + REPL
 - JSONL session persistence
+- TS-style model/provider architecture:
+  - model catalog (`models_generated.py`)
+  - model lookup (`model_registry.py`)
+  - API registry (`api_registry.py`)
+  - provider adapters (`providers/*`)
+  - dispatch boundary (`stream.py`)
 - Tool shortcuts:
   - `/read <path>`
   - `/write <path> <text>`
   - `/bash <command>`
-- Local stub LLM response (provider integration comes next)
+- Providers:
+  - `stub/local-minimal` (offline default)
+  - `openai/gpt-4o-mini`, `openai/gpt-5-mini`
 
 ## v2 Direction
 
@@ -34,13 +42,22 @@ v2 adds richer observability and progress:
 ```text
 src/pi_py/
   cli.py        # command-line interface and REPL
+  ai_types.py   # model/provider/context types
+  models_generated.py  # generated model catalog
+  model_registry.py    # get_model/get_models/get_providers
+  env_api_keys.py      # provider -> env var key lookup
+  api_registry.py      # api -> adapter registry
   config.py     # config loading + paths
   models.py     # simple data models
-  llm.py        # model call boundary (stub now)
+  llm.py        # model/provider dispatch boundary for agent
+  stream.py     # generic dispatch by model.api
+  providers/    # provider adapters and built-in registration
   tools.py      # built-in tools
   agent.py      # single-turn agent loop
   session.py    # JSONL session persistence
   prompts.py    # system prompt text
+scripts/
+  generate_models.py   # deterministic model-catalog generator
 ```
 
 ## Quick Start (uv)
@@ -49,6 +66,7 @@ src/pi_py/
 uv sync
 uv run pi-py "hello"
 uv run pi-py
+uv run pi-py --list-models
 ```
 
 Try a tool command:
@@ -57,7 +75,14 @@ Try a tool command:
 uv run pi-py "/bash ls -la"
 ```
 
-In v1, command output is returned as a normal assistant response. Structured event/progress streams are part of v2.
+Use OpenAI provider:
+
+```bash
+export OPENAI_API_KEY=your_key_here
+uv run pi-py --provider openai --model gpt-4o-mini "Write a haiku about clean code"
+```
+
+In v1, command output is returned as a normal assistant response. Structured event/progress streams remain part of v2.
 
 ## Why `uv`?
 
