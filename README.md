@@ -17,7 +17,7 @@ Minimal, human-readable Python agent inspired by `pi`.
 - Two-layer architecture:
   - `core.py`: runtime, session storage, tools, agent loop
   - `adapters.py`: model catalog, provider registry/dispatch, OpenAI adapter
-  - `tools/`: one file per tool + router (`read.py`, `write.py`, `bash.py`, `time.py`, `router.py`)
+  - `tools.py`: all tool functions and shortcut routing in one file
 - Tool shortcuts:
   - `/read <path>`
   - `/write <path> <text>`
@@ -42,7 +42,7 @@ src/pi_py/
   cli.py        # command-line interface and REPL
   core.py       # config, messages, session I/O, tools, Agent
   adapters.py   # model catalog + provider adapters + dispatch
-  tools/        # individual tools + shortcut router
+  tools.py      # all tool logic and shortcut router
 tests/
   test_agent.py
   test_adapters.py
