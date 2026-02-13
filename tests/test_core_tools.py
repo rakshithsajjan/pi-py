@@ -1,6 +1,9 @@
 from pathlib import Path
 
-from pi_py.core import run_tool_shortcut, tool_bash, tool_read, tool_write
+from pi_py.tools.bash import tool_bash
+from pi_py.tools.read import tool_read
+from pi_py.tools.router import run_tool_shortcut
+from pi_py.tools.write import tool_write
 
 
 def test_write_then_read(tmp_path: Path) -> None:
@@ -28,3 +31,8 @@ def test_run_tool_shortcut_read_and_write(tmp_path: Path) -> None:
     read_result = run_tool_shortcut(tmp_path, "/read x.txt")
     assert read_result == "hello"
 
+
+def test_run_tool_shortcut_time(tmp_path: Path) -> None:
+    output = run_tool_shortcut(tmp_path, "/time")
+    assert output is not None
+    assert "T" in output
