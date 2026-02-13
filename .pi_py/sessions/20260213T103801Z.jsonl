@@ -1,0 +1,8 @@
+{"role": "user", "content": "hello pi-py", "timestamp": "2026-02-13T10:38:01.282742+00:00"}
+{"role": "assistant", "content": "You are pi-py, a minimal coding assistant. Be concise, practical, and explicit about tool usage.\n\n(stub response)\nYou said: hello pi-py\nTool shortcuts: /read <path>, /write <path> <text>, /bash <command>", "timestamp": "2026-02-13T10:38:01.282763+00:00"}
+{"role": "user", "content": "/bash echo hi-from-bash", "timestamp": "2026-02-13T10:38:01.353631+00:00"}
+{"role": "assistant", "content": "hi-from-bash", "timestamp": "2026-02-13T10:38:01.360066+00:00"}
+{"role": "user", "content": "/write notes.txt 'hello from pi-py'", "timestamp": "2026-02-13T10:38:01.430131+00:00"}
+{"role": "assistant", "content": "wrote 16 chars to /Users/rakshithsajjan/Documents/projects/pi/pi-py/notes.txt", "timestamp": "2026-02-13T10:38:01.430627+00:00"}
+{"role": "user", "content": "/read notes.txt", "timestamp": "2026-02-13T10:38:01.498994+00:00"}
+{"role": "assistant", "content": "hello from pi-py", "timestamp": "2026-02-13T10:38:01.499191+00:00"}
