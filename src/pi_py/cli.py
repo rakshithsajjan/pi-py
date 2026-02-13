@@ -2,11 +2,8 @@ import argparse
 from pathlib import Path
 from typing import cast
 
-from .agent import Agent
-from .ai_types import KnownProvider
-from .config import load_config
-from .model_registry import get_models, get_providers
-from .session import append_message, load_messages, new_session_path
+from .adapters import KnownProvider, get_models, get_providers
+from .core import Agent, append_message, load_config, load_messages, new_session_path
 
 
 def main() -> None:
