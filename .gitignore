@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+.python-version
+*.egg-info/
+dist/
+build/
+
+# Reference source has its own git — we keep the worktree only
+ref/pi/.git/
+ref/**/.git/

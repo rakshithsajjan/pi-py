@@ -1,0 +1,24 @@
+[project]
+name = "pi-py"
+version = "2.0.0"
+description = "From-scratch Python equivalent of pi.dev coding agent"
+readme = "README.md"
+authors = [
+    { name = "Rakshith Sajjan", email = "126959732+rakshithsajjan@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+pi-py = "pi_py.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.26,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
